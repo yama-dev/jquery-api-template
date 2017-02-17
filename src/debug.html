@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <title>jquery-api-template | yama-dev</title>
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js" charset="UTF-8"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/lodash/4.17.3/lodash.min.js" ></script>
+  <script src="/ga.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <div class="row mt-10">
+
+    <div class="col-md-1">
+    </div>
+
+    <div class="col-md-10">
+
+      <h2>APIテスト</h2>
+
+      <hr>
+
+      <form>
+
+        <div class="form-group">
+          <label for="input-type">TYPE POST|GET</label>
+          <input id="input-type" class="form-control" type="text" name="input-type" value="POST" autocomplete="on">
+        </div>
+
+        <div class="form-group">
+          <label for="input-url">API URL</label>
+          <input id="input-url" class="form-control" type="text" name="input-url" value="" placeholder="https://api.com/" autocomplete="on">
+        </div>
+
+        <div class="form-group">
+          <label for="text-data">送信データ</label>
+          <textarea id="text-data" class="form-control" name="text-data" value="" placeholder="{data:data}" rows="5" autocomplete="on"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="text-data">RETURNデータ</label>
+          <textarea id="text-return" class="form-control" name="text-return" value="" placeholder="" rows="10"></textarea>
+        </div>
+
+      </form>
+
+      <button class="btn btn-default" >送信する</button>
+
+    </div>
+    <div class="col-md-1">
+    </div>
+
+  </div>
+</div>
+
+<a href="https://github.com/yama-dev/jquery-api-template"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
+
+<script>
+$(function(){
+  $('.btn-default').on('click',function(){
+
+    var _inputType = $('#input-type').val();
+    var _inputUrl  = $('#input-url').val();
+    var _textData  = $('#text-data').val();
+
+    console.log(_inputUrl);
+    console.log(_textData);
+
+    $.ajax({
+      type: _inputType,
+      url: _inputUrl,
+      dataType: "json",
+      cache: false,
+      data: _textData
+    }).done(function(data){
+      console.log(data);
+    }).fail(function(data){
+    }).always(function(data){
+      $('#text-return').val(JSON.stringify(data,undefined,1));
+    });
+
+  })
+});
+</script>
+
+</body>
+</html>
