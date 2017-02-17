@@ -41,7 +41,7 @@
 
         <div class="form-group">
           <label for="text-data">送信データ</label>
-          <textarea id="text-data" class="form-control" name="text-data" value="" placeholder="{data:data}" rows="5" autocomplete="on"></textarea>
+          <textarea id="text-data" class="form-control" name="text-data" value="" placeholder="{&quot;data&quot;:data}" rows="5" autocomplete="on"></textarea>
         </div>
 
         <div class="form-group">
@@ -68,16 +68,22 @@ $(function(){
 
     var _inputType = $('#input-type').val();
     var _inputUrl  = $('#input-url').val();
-    var _textData  = $('#text-data').val();
+    var _textData  = JSON.parse($('#text-data').val());
 
     console.log(_inputUrl);
     console.log(_textData);
+    // let _data = new FormData();
+    // Object.keys(_textData).forEach(function(key) {
+    //   _data.append(key, _textData[key]);
+    // });
+    // console.log(_data);
 
     $.ajax({
       type: _inputType,
       url: _inputUrl,
       dataType: "json",
       cache: false,
+      // data: JSON.stringify(_textData)
       data: _textData
     }).done(function(data){
       console.log(data);
